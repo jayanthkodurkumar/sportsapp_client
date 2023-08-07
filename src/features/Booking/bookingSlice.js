@@ -1,43 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// const initialState = [
-//   {
-//     first_name: "raina",
-//     last_name: "raina",
-//     user_name: "jjoe",
-//     date: "2023-06-02",
-//     start_time: "11:00:00",
-//     end_time: "12:00:00",
-//     user: {
-//       user_id: 1,
-//       first_name: "jane",
-//       last_name: "doe",
-//       user_name: "jdoe",
-//       password: "password123",
-//       role: "admin",
-//     },
-//     bookingId: 1,
-//   },
-//   {
-//     first_name: "dave",
-//     last_name: "mohd",
-//     user_name: "david",
-//     date: "2023-06-02",
-//     start_time: "11:00:00",
-//     end_time: "12:00:00",
-//     user: {
-//       user_id: 1,
-//       first_name: "jane",
-//       last_name: "doe",
-//       user_name: "jdoe",
-//       password: "password123",
-//       role: "admin",
-//     },
-//     bookingId: 2,
-//   },
-// ];
 
 const BOOKINGS_URL = "http://localhost:8080/booking";
+const ADD_BOOKINGS_URL = "http://localhost:8080/users/1/booking";
 
 const initialState = {
   bookings: [],
@@ -59,10 +24,28 @@ export const fetchBookings = createAsyncThunk(
   }
 );
 
+export const addBookings = createAsyncThunk("bookings/addBookings", (data) => {
+  try {
+    const response = axios.post(ADD_BOOKINGS_URL, data);
+    //   console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+
+    throw error; // Throw the error to be caught in the .rejected case
+  }
+});
+
 export const bookingSlice = createSlice({
   name: "bookings",
   initialState,
-  reducers: {},
+  reducers: {
+    bookingAdded: {
+      reducer(state, action) {
+        state.bookings.push(action.payload);
+      },
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchBookings.pending, (state, action) => {
@@ -84,5 +67,7 @@ export const bookingSlice = createSlice({
 export const selectAllBookings = (state) => state.bookings.bookings;
 export const getBookingsStatus = (state) => state.bookings.status;
 export const getBookingsError = (state) => state.bookings.error;
+
+export const { bookingAdded } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

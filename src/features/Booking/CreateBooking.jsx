@@ -1,14 +1,21 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TextField, Button, Container } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
-import React, { useState } from "react";
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
+import { addBookings } from "./bookingSlice";
 
 const CreateBooking = () => {
+  const dispatch = useDispatch();
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
+  const navigate = useNavigate();
+  const viewbookings = "/";
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -22,16 +29,33 @@ const CreateBooking = () => {
   };
 
   const handleSubmit = () => {
-    const formattedDate = dayjs(formData.date).format("YYYY-MM-DD");
-    const formattedStartTime = dayjs(formData.start_time).format("HH:mm:ss");
-    const formattedEndTime = dayjs(formData.end_time).format("HH:mm:ss");
+    try {
+      const formattedDate = dayjs(formData.date).format("YYYY-MM-DD");
+      const formattedStartTime = dayjs(formData.start_time).format("HH:mm:ss");
+      const formattedEndTime = dayjs(formData.end_time).format("HH:mm:ss");
 
-    formData.date = formattedDate;
-    formData.start_time = formattedStartTime;
-    formData.end_time = formattedEndTime;
+      formData.date = formattedDate;
+      formData.start_time = formattedStartTime;
+      formData.end_time = formattedEndTime;
 
-    console.log("Form submitted:", formData);
+      const updatedFormData = {
+        ...formData,
+        date: formattedDate,
+        start_time: formattedStartTime,
+        end_time: formattedEndTime,
+      };
+      setAddRequestStatus("pending");
+      dispatch(addBookings(updatedFormData));
+
+      // console.log("Form submitted:", formData);
+      navigate(viewbookings);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAddRequestStatus("idle");
+    }
   };
+
   return (
     <div>
       <h1>Create A New Booking</h1>
