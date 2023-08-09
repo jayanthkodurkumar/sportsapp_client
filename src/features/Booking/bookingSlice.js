@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BOOKINGS_URL = "http://localhost:8080/booking";
-const ADD_BOOKINGS_URL = "http://localhost:8080/users/1/booking";
+const BOOKINGS_URL = "http://localhost:5000/booking";
+const ADD_BOOKINGS_URL = "http://localhost:5000/users/1/booking";
 
 const initialState = {
   bookings: [],
