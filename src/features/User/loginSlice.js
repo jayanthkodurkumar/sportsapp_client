@@ -14,9 +14,6 @@ export const fetchLoginData = createAsyncThunk(
       // console.log(response.data);
       return response.data;
     } catch (error) {
-      // return error.response.data;
-      // console.error(error);
-
       throw error.response.data;
     }
   }
@@ -44,7 +41,6 @@ export const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchLoginData.fulfilled, (state, action) => {
-      // Assuming that action.payload contains the user data
       state.isAuthenticated = true;
       state.user = action.payload;
       state.error = null;

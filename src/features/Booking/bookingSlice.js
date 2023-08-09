@@ -14,12 +14,12 @@ export const fetchBookings = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(BOOKINGS_URL);
-      //   console.log(response.data);
+
       return response.data;
     } catch (error) {
       console.error("Error fetching bookings:", error);
 
-      throw error; // Throw the error to be caught in the .rejected case
+      throw error;
     }
   }
 );
@@ -27,12 +27,10 @@ export const fetchBookings = createAsyncThunk(
 export const addBookings = createAsyncThunk("bookings/addBookings", (data) => {
   try {
     const response = axios.post(ADD_BOOKINGS_URL, data);
-    //   console.log(response.data);
+
     return response.data;
   } catch (error) {
-    console.error("Error fetching bookings:", error);
-
-    throw error; // Throw the error to be caught in the .rejected case
+    throw error;
   }
 });
 
@@ -54,8 +52,7 @@ export const bookingSlice = createSlice({
       .addCase(fetchBookings.fulfilled, (state, action) => {
         state.status = "suceeded";
 
-        state.bookings = action.payload; // Update state with fetched bookings
-        // console.log(state.bookings);
+        state.bookings = action.payload;
       })
       .addCase(fetchBookings.rejected, (state, action) => {
         state.status = "failed";
