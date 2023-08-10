@@ -12,6 +12,7 @@ import { addBookings } from "./bookingSlice";
 
 const CreateBooking = () => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line
   const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const navigate = useNavigate();
   const viewbookings = "/";

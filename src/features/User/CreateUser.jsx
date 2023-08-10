@@ -34,7 +34,7 @@ const CreateUser = () => {
       return;
     }
     axios
-      .post("/createuser", user)
+      .post(SIGNUP_URL, user)
       .then((response) => {
         navigate(viewlogin);
       })

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchLoginData, loginFailure } from "./loginSlice";
@@ -7,8 +7,8 @@ import { Alert, Button, Container, Stack, TextField } from "@mui/material";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const user = useSelector((state) => state.login.user);
   const error = useSelector((state) => state.login.error);
 
@@ -20,10 +20,11 @@ const Login = () => {
   const handleChange = (name, value) => {
     setLoginData((prevData) => ({ ...prevData, [name]: value }));
   };
-
+  const HOME_URL = "/";
   const handleSubmit = () => {
     try {
       dispatch(fetchLoginData(loginData));
+      navigate(HOME_URL);
     } catch (error) {
       dispatch(loginFailure(error));
     }

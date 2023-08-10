@@ -9,7 +9,7 @@ export const fetchLoginData = createAsyncThunk(
   "login/fetchLoginData",
   async (data) => {
     try {
-      const response = await axios.post("/login", data);
+      const response = await axios.post(LOGIN_URL, data);
       // console.log(response.data);
       return response.data;
     } catch (error) {
