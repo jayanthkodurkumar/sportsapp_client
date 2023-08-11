@@ -17,20 +17,23 @@ const CreateBooking = () => {
   const navigate = useNavigate();
   const viewbookings = "/";
 
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  const user = useSelector((state) => state.login.user);
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     date: "",
     start_time: "",
     end_time: "",
+    user_name: user.user_name,
   });
+  // console.log(user);
 
   const handleChange = (name, value) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
-  const user = useSelector((state) => state.login.user);
   const handleSubmit = () => {
     try {
       const formattedDate = dayjs(formData.date).format("YYYY-MM-DD");
