@@ -7,7 +7,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 import dayjs from "dayjs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBookings } from "./bookingSlice";
 
 const CreateBooking = () => {
@@ -29,6 +29,8 @@ const CreateBooking = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  const user = useSelector((state) => state.login.user);
   const handleSubmit = () => {
     try {
       const formattedDate = dayjs(formData.date).format("YYYY-MM-DD");
@@ -46,10 +48,10 @@ const CreateBooking = () => {
         end_time: formattedEndTime,
       };
       setAddRequestStatus("pending");
-      dispatch(addBookings(updatedFormData));
+      dispatch(addBookings({ data: updatedFormData, isAuthenticated, user }));
 
-      // console.log("Form submitted:", formData);
-      navigate(viewbookings);
+      console.log("Form submitted:", formData);
+      // navigate(viewbookings);
     } catch (error) {
       console.log(error);
     } finally {

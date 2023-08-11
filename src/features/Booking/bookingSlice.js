@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const BOOKINGS_URL = "http://localhost:5000/booking";
-const ADD_BOOKINGS_URL = "http://localhost:5000/users/1/booking";
 
 const initialState = {
   bookings: [],
@@ -24,26 +23,28 @@ export const fetchBookings = createAsyncThunk(
   }
 );
 
-export const addBookings = createAsyncThunk("bookings/addBookings", (data) => {
-  try {
-    const response = axios.post(ADD_BOOKINGS_URL, data);
+export const addBookings = createAsyncThunk(
+  "bookings/addBookings",
+  async ({ data, isAuthenticated, user }) => {
+    try {
+      const { user_id } = user;
 
-    return response.data;
-  } catch (error) {
-    throw error;
+      if (isAuthenticated) {
+        const ADD_BOOKINGS_URL = `http://localhost:5000/users/${user_id}/booking`;
+
+        const response = await axios.post(ADD_BOOKINGS_URL, data);
+        return response.data;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
 
 export const bookingSlice = createSlice({
   name: "bookings",
   initialState,
-  reducers: {
-    bookingAdded: {
-      reducer(state, action) {
-        state.bookings.push(action.payload);
-      },
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchBookings.pending, (state, action) => {
@@ -56,6 +57,16 @@ export const bookingSlice = createSlice({
       })
       .addCase(fetchBookings.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(addBookings.fulfilled, (state, action) => {
+        console.log("Received Payload:", action.payload);
+        state.bookings.push(action.payload);
+        state.status = "succeeded";
+      })
+      .addCase(addBookings.rejected, (state, action) => {
+        state.status = "failed";
+        state.bookings = [];
         state.error = action.error.message;
       });
   },

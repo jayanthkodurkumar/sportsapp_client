@@ -14,6 +14,11 @@ const Home = () => {
       dispatch(logout());
     }
   };
+  const handleCreate = () => {
+    if (isAuthenticated === true) {
+      navigate("/create");
+    }
+  };
 
   const handleLogin = () => {
     if (isAuthenticated === false) {
@@ -24,15 +29,26 @@ const Home = () => {
   return (
     <div>
       {isAuthenticated ? (
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#228B22" }}
-          onClick={() => {
-            handleLogout();
-          }}
-        >
-          Logout
-        </Button>
+        <>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#228B22" }}
+            onClick={() => {
+              handleLogout();
+            }}
+          >
+            Logout
+          </Button>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#228B22" }}
+            onClick={() => {
+              handleCreate();
+            }}
+          >
+            Create booking
+          </Button>
+        </>
       ) : (
         <Button
           variant="contained"
