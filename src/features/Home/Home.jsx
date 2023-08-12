@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../User/loginSlice";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Userbooking from "../Booking/Userbooking";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Home = () => {
   const handleLogout = () => {
     if (isAuthenticated === true) {
       dispatch(logout());
+      navigate("/login");
     }
   };
   const handleCreate = () => {
@@ -27,40 +29,45 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {isAuthenticated ? (
-        <>
+    <>
+      <div>
+        {isAuthenticated ? (
+          <>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#228B22" }}
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              Logout
+            </Button>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#228B22" }}
+              onClick={() => {
+                handleCreate();
+              }}
+            >
+              Create booking
+            </Button>
+          </>
+        ) : (
           <Button
             variant="contained"
             style={{ backgroundColor: "#228B22" }}
             onClick={() => {
-              handleLogout();
+              handleLogin();
             }}
           >
-            Logout
+            Login
           </Button>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: "#228B22" }}
-            onClick={() => {
-              handleCreate();
-            }}
-          >
-            Create booking
-          </Button>
-        </>
-      ) : (
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#228B22" }}
-          onClick={() => {
-            handleLogin();
-          }}
-        >
-          Login
-        </Button>
-      )}
-    </div>
+        )}
+      </div>
+      <div>
+        <Userbooking />
+      </div>
+    </>
   );
 };
 

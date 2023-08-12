@@ -86,19 +86,7 @@ const CreateUser = () => {
           variant="outlined"
           fullWidth
         />
-        <TextField
-          label="Date of Birth"
-          name="dob"
-          type="date"
-          value={user.dob}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+
         <TextField
           label="Password"
           name="password"

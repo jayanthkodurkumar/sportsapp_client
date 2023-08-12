@@ -15,7 +15,6 @@ const CreateBooking = () => {
   // eslint-disable-next-line
   const [addRequestStatus, setAddRequestStatus] = useState("idle");
   const navigate = useNavigate();
-  const viewbookings = "/";
 
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   const user = useSelector((state) => state.login.user);
@@ -28,7 +27,6 @@ const CreateBooking = () => {
     end_time: "",
     user_name: user.user_name,
   });
-  // console.log(user);
 
   const handleChange = (name, value) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -53,8 +51,7 @@ const CreateBooking = () => {
       setAddRequestStatus("pending");
       dispatch(addBookings({ data: updatedFormData, isAuthenticated, user }));
 
-      console.log("Form submitted:", formData);
-      // navigate(viewbookings);
+      navigate("/");
     } catch (error) {
       console.log(error);
     } finally {
@@ -62,6 +59,8 @@ const CreateBooking = () => {
     }
   };
 
+  const nineAM = dayjs().set("hour", 9).set("minute", 0).set("second", 0);
+  const tenPM = dayjs().set("hour", 22).set("minute", 0).set("second", 0);
   return (
     <div>
       <h1>Create A New Booking</h1>
@@ -103,6 +102,8 @@ const CreateBooking = () => {
             <TimePicker
               label="Select Start Time"
               name="start_time"
+              minTime={nineAM}
+              maxTime={tenPM}
               // value={formData.start_time}
               onChange={(start_time) => handleChange("start_time", start_time)}
               required
@@ -112,7 +113,8 @@ const CreateBooking = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker
               label="Select End Time"
-              // value={formData.end_time}
+              minTime={nineAM}
+              maxTime={tenPM}
               onChange={(end_time) => {
                 handleChange("end_time", end_time);
               }}

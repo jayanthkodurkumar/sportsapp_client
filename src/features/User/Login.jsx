@@ -51,6 +51,7 @@ const Login = () => {
           <TextField
             label="Password"
             name="password"
+            type="password"
             value={loginData.password}
             onChange={(e) => handleChange("password", e.target.value)}
             required
@@ -64,6 +65,15 @@ const Login = () => {
             }}
           >
             Login
+          </Button>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#228B22" }}
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Sign Up
           </Button>
         </form>
       </Container>
