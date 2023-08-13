@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchLoginData, loginFailure } from "./loginSlice";
 import { Alert, Button, Container, Stack, TextField } from "@mui/material";
 
@@ -31,8 +30,9 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login </h1>
+    <div className="parent">
+      <h1>INDY UNI SOCCER BOOK</h1>
+      <h3>Login to your account </h3>
       <Container>
         <form
           onSubmit={handleSubmit}
@@ -43,12 +43,14 @@ const Login = () => {
           }}
         >
           <TextField
+            className="tf"
             label="User Name"
             name="user_name"
             onChange={(e) => handleChange("user_name", e.target.value)}
             required
           />
           <TextField
+            className="tf"
             label="Password"
             name="password"
             type="password"
@@ -68,7 +70,6 @@ const Login = () => {
           </Button>
           <Button
             variant="contained"
-            style={{ backgroundColor: "#228B22" }}
             onClick={() => {
               navigate("/register");
             }}

@@ -29,27 +29,26 @@ const Home = () => {
   };
 
   return (
-    <>
-      <div>
+    <div className="main">
+      <div className="parent">
         {isAuthenticated ? (
           <>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#228B22" }}
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              Logout
-            </Button>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#228B22" }}
               onClick={() => {
                 handleCreate();
               }}
             >
               Create booking
+            </Button>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "red" }}
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              Logout
             </Button>
           </>
         ) : (
@@ -64,10 +63,10 @@ const Home = () => {
           </Button>
         )}
       </div>
-      <div>
+      <div className="user-booking">
         <Userbooking />
       </div>
-    </>
+    </div>
   );
 };
 

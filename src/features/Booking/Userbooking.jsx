@@ -16,6 +16,7 @@ const Userbooking = () => {
   const userbookingsStatus = useSelector((state) => state.userbooking.status);
 
   const user_id = user?.user_id;
+  const first_name = user?.first_name;
 
   useEffect(() => {
     if (user_id && isAuthenticated && userbookingsStatus === "idle") {
@@ -102,12 +103,15 @@ const Userbooking = () => {
     end_time: booking.end_time,
   }));
   //   console.log(bookings);
+
   return (
-    <div>
+    <div className="parent">
       {userbookings.length === 0 ? (
         <p>You have no bookings.</p>
       ) : (
-        <>
+        <div className="parent">
+          <h2>Welcome {first_name}</h2>
+          <p>Your current reservations</p>
           <div style={{ display: "inline-block" }}>
             <DataGrid
               rows={rows}
@@ -121,7 +125,7 @@ const Userbooking = () => {
               checkboxSelection
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
