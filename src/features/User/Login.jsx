@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <div className="parent">
-      <h1>INDY UNI SOCCER BOOK</h1>
+      <h1>IU SOCCER BOOK</h1>
       <h3>Login to your account </h3>
       <Container>
         <form
