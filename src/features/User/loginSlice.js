@@ -3,13 +3,14 @@ import axios from "axios";
 
 const initialState = { isAuthenticated: false, user: null, error: null };
 
-const LOGIN_URL = "http://localhost:5000/login";
+const LOGIN_URL = "http://localhost:8080/login";
 
 export const fetchLoginData = createAsyncThunk(
   "login/fetchLoginData",
   async (data) => {
     try {
       const response = await axios.post(LOGIN_URL, data);
+
       // console.log(response.data);
       return response.data;
     } catch (error) {

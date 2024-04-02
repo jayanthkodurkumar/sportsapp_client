@@ -11,11 +11,15 @@ import axios from "axios";
 const Userbooking = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
+  // console.log(isAuthenticated);
 
   const user = useSelector((state) => state.login.user);
-  const userbookingsStatus = useSelector((state) => state.userbooking.status);
 
-  const user_id = user?.user_id;
+  const userbookingsStatus = useSelector((state) => state.userbooking.status);
+  // console.log(user);
+  // console.log(userbookingsStatus);
+  const user_id = user?.userId;
+  // console.log(user_id);
   const first_name = user?.first_name;
 
   useEffect(() => {
@@ -43,7 +47,7 @@ const Userbooking = () => {
   const handleDelete = async (bookingId, e) => {
     e.stopPropagation();
 
-    const DELETE_URL = `http://localhost:5000/booking/${bookingId}`;
+    const DELETE_URL = `http://localhost:8080/users/booking/${bookingId}`;
     try {
       await axios.delete(DELETE_URL);
 
@@ -110,7 +114,7 @@ const Userbooking = () => {
         <p>You have no bookings.</p>
       ) : (
         <div className="parent">
-          <h2>Welcome {first_name}</h2>
+          <h2>Welcome {user.userDetails.username}</h2>
           <p>Your current reservations</p>
           <div style={{ display: "inline-block" }}>
             <DataGrid

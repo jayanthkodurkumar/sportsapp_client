@@ -12,7 +12,8 @@ export const fetchBookingsbyUserId = createAsyncThunk(
     try {
       // const { user_id } = user;
       // console.log(user_id);
-      const USER_BOOKINGS_URL = `http://localhost:5000/users/${user_id}/bookings`;
+      const USER_BOOKINGS_URL = `http://localhost:8080/users/${user_id}/bookings`;
+      // console.log(USER_BOOKINGS_URL);
       const response = await axios.get(USER_BOOKINGS_URL);
       // console.log(response.data);
       return response.data;

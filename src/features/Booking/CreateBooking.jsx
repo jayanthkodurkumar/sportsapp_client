@@ -53,7 +53,7 @@ const CreateBooking = () => {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setAddRequestStatus("idle");
     }

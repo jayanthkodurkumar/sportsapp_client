@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Alert, Button, Stack, TextField } from "@mui/material";
 
 const CreateUser = () => {
-  const SIGNUP_URL = "http://localhost:5000/createuser";
+  const SIGNUP_URL = "http://localhost:8080/register/user";
   const navigate = useNavigate();
   const viewlogin = "/login";
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
-    user_name: "",
+    username: "",
     dob: "",
     password: "",
     confirmPassword: "",
+    role: "USER",
   });
 
   const [err, setErr] = useState(null);
@@ -33,6 +34,7 @@ const CreateUser = () => {
       setErr("Passwords do not match!");
       return;
     }
+    // console.log(user);
     axios
       .post(SIGNUP_URL, user)
       .then((response) => {
@@ -42,7 +44,7 @@ const CreateUser = () => {
         if (
           user.first_name === "" ||
           user.last_name === "" ||
-          user.user_name === "" ||
+          user.username === "" ||
           user.dob === null ||
           user.password === ""
         ) {
@@ -79,8 +81,8 @@ const CreateUser = () => {
         />
         <TextField
           label="Username"
-          name="user_name"
-          value={user.user_name}
+          name="username"
+          value={user.username}
           onChange={handleChange}
           margin="normal"
           variant="outlined"

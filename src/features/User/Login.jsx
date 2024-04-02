@@ -12,7 +12,7 @@ const Login = () => {
   const error = useSelector((state) => state.login.error);
 
   const [loginData, setLoginData] = useState({
-    user_name: "",
+    username: "",
     password: "",
   });
 
@@ -45,8 +45,8 @@ const Login = () => {
           <TextField
             className="tf"
             label="User Name"
-            name="user_name"
-            onChange={(e) => handleChange("user_name", e.target.value)}
+            name="username"
+            onChange={(e) => handleChange("username", e.target.value)}
             required
           />
           <TextField

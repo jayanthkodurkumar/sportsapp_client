@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BOOKINGS_URL = "http://localhost:5000/booking";
+const BOOKINGS_URL = "http://localhost:8080/booking";
 
 const initialState = {
   bookings: [],
@@ -27,11 +27,14 @@ export const addBookings = createAsyncThunk(
   "bookings/addBookings",
   async ({ data, isAuthenticated, user }) => {
     try {
-      const { user_id } = user;
+      const user_id = user.userId;
+      const username = user.userDetails.username;
+      data = { ...data, user_name: username };
+      // console.log("first", user);
 
       if (isAuthenticated) {
-        const ADD_BOOKINGS_URL = `http://localhost:5000/users/${user_id}/booking`;
-
+        const ADD_BOOKINGS_URL = `http://localhost:8080/users/${user_id}/booking`;
+        // console.log(data);
         const response = await axios.post(ADD_BOOKINGS_URL, data);
         return response.data;
       }
@@ -60,7 +63,7 @@ export const bookingSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addBookings.fulfilled, (state, action) => {
-        console.log("Received Payload:", action.payload);
+        // console.log("Received Payload:", action.payload);
         state.bookings.push(action.payload);
         state.status = "succeeded";
       })

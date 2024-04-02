@@ -59,7 +59,7 @@ const Booking = () => {
           color="primary"
           onClick={(e) => {
             e.stopPropagation();
-            console.log("view clicked");
+            // console.log("view clicked");
           }}
         >
           VIEW
@@ -77,7 +77,7 @@ const Booking = () => {
           style={{ backgroundColor: "#ed3235" }}
           onClick={(e) => {
             e.stopPropagation();
-            console.log("çancel clicked");
+            // console.log("çancel clicked");
           }}
         >
           CANCEL
