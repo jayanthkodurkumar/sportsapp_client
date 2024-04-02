@@ -114,7 +114,7 @@ const Userbooking = () => {
         <p>You have no bookings.</p>
       ) : (
         <div className="parent">
-          <h2>Welcome {user.userDetails.username}</h2>
+          <h2>Welcome {user.userDetails?.username}</h2>
           <p>Your current reservations</p>
           <div style={{ display: "inline-block" }}>
             <DataGrid
